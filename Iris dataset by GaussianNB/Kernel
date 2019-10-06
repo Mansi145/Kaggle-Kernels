@@ -1,0 +1,19 @@
+import numpy as np 
+import pandas as pd 
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import balanced_accuracy_score  
+
+import os
+total_dataset = pd.read_csv("../input/Iris.csv")
+train,test = train_test_split(total_dataset, test_size=0.8)
+
+train_features = train.iloc[:,:-1]
+train_labels = train.iloc[:,-1]
+test_features = test.iloc[:,:-1]
+test_labels = test.iloc[:,-1]
+
+clf = GaussianNB()
+clf.fit(train_features, train_labels)
+predict_labels = clf.predict(test_features)
+print(balanced_accuracy_score(test_labels, predict_labels))
